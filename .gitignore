@@ -1,0 +1,19 @@
+# deps
+node_modules
+
+# Env files. Don't commit these. make own.
+*.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# DS_Store
+.DS_Store
+
+# editors/ide
+.vscode
+.idea
