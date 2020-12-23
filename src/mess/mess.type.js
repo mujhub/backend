@@ -37,10 +37,22 @@ const MessItemDef = gql`
   Filter argument options for messItems()
   """
   input MessItemFilter {
-    idFilter: StringFilter
-    nameFilter: StringFilter
-    mealTimeFilter: StringFilter
-    timestampFilter: IntRangeFilter
+    _id: StringFilter
+    name: StringFilter
+    mealTime: StringFilter
+    timestamp: IntRangeFilter
+  }
+
+  """
+  Sort argument options for messItems().
+  Multiple fields sort is not possible. Server will ignore extra fields.
+  Order of preference: _id, name, mealTime, timestamp.
+  """
+  input MessItemOrderBy {
+    _id: Sort
+    name: Sort
+    mealTime: Sort
+    timestamp: Sort
   }
 `;
 

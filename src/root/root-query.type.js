@@ -8,7 +8,7 @@ const RootQueryDef = gql`
     """
     Get mess items
     """
-    messItems(filter: MessItemFilter): [MessItem]
+    messItems(filter: MessItemFilter, orderBy: MessItemOrderBy): [MessItem]
   }
 `;
 
