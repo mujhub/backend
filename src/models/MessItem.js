@@ -18,7 +18,7 @@ const MessItemSchema = new Schema({
     type: String,
     required: true,
   },
-  time: {
+  mealTime: {
     type: String,
     required: true,
   },

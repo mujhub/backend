@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import { gql } from "apollo-server-express";
 
 const MessItemDef = gql`
   """
@@ -27,10 +27,34 @@ const MessItemDef = gql`
   Enum types for Meal times (Breakfast, etc.).
   """
   enum MealTime {
-      BREAKFAST
-      LUNCHs
-      HITEA
-      DINNER
+    BREAKFAST
+    LUNCH
+    HITEA
+    DINNER
+  }
+
+  input MessItemFilter {
+    idFilter: IDFilter
+    nameFilter: NameFilter
+    mealTimeFilter: MealTimeFilter
+    timestampFilter: TimestampFilter
+  }
+
+  input IDFilter {
+    eq: String!
+  }
+
+  input NameFilter {
+    eq: String!
+  }
+
+  input MealTimeFilter {
+    eq: String!
+  }
+
+  input TimestampFilter {
+    gte: Int
+    lte: Int
   }
 `;
 
