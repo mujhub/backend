@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 const MessItemDef = gql`
   """
@@ -33,28 +33,14 @@ const MessItemDef = gql`
     DINNER
   }
 
+  """
+  Filter argument options for messItems()
+  """
   input MessItemFilter {
-    idFilter: IDFilter
-    nameFilter: NameFilter
-    mealTimeFilter: MealTimeFilter
-    timestampFilter: TimestampFilter
-  }
-
-  input IDFilter {
-    eq: String!
-  }
-
-  input NameFilter {
-    eq: String!
-  }
-
-  input MealTimeFilter {
-    eq: String!
-  }
-
-  input TimestampFilter {
-    gte: Int
-    lte: Int
+    idFilter: StringFilter
+    nameFilter: StringFilter
+    mealTimeFilter: StringFilter
+    timestampFilter: IntRangeFilter
   }
 `;
 
