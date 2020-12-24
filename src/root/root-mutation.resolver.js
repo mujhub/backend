@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
+import { generateMongoFilterFromMessItemFilter } from '../mess/mess-item.utils';
 
 const { ObjectId } = mongoose.Types;
 
+/**
+ * Resolver for RootMutation type.
+ */
 export default {
   RootMutation: {
     createMessItem: async (_parent, args, { models }) => {
@@ -18,6 +22,19 @@ export default {
       });
 
       return { messItem: newMessItem.save() };
+    },
+
+    deleteMessItem: async (_parent, args, { models }) => {
+      const { filter } = args;
+
+      const mongoFilter = filter ? generateMongoFilterFromMessItemFilter(filter) : {};
+      const { n, ok, deletedCount } = await models.MessItem.deleteMany(mongoFilter);
+
+      return {
+        found: n,
+        success: ok,
+        deletedCount,
+      };
     },
   },
 };

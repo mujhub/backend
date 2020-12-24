@@ -37,7 +37,7 @@ const MessItemDef = gql`
   Filter argument options for messItems()
   """
   input MessItemFilter {
-    _id: StringFilter
+    _id: IDFilter
     name: StringFilter
     mealTime: StringFilter
     timestamp: IntRangeFilter
@@ -64,10 +64,19 @@ const MessItemDef = gql`
   }
 
   """
-  Payload type for mutations on MessItem
+  Payload type for create mutations on MessItem
   """
-  type MessItemPayload {
+  type CreateMessItemPayload {
     messItem: MessItem
+  }
+
+  """
+  Payload type for create mutations on MessItem
+  """
+  type DeleteMessItemPayload {
+    found: Int!
+    success: Int!
+    deletedCount: Int!
   }
 `;
 

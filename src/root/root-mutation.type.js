@@ -8,7 +8,12 @@ const RootMutationDef = gql`
     """
     Create mess items.
     """
-      createMessItem(input: MessItemInput!): MessItemPayload!
+    createMessItem(input: MessItemInput!): CreateMessItemPayload!
+
+    """
+    Delete mess items that match filter.
+    """
+    deleteMessItem(filter: MessItemFilter!): DeleteMessItemPayload!
   }
 `;
 

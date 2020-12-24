@@ -2,6 +2,14 @@ import { gql } from 'apollo-server-express';
 
 const FilterDef = gql`
   """
+  Filter input for equality relation on ID type.
+  """
+  input IDFilter {
+    eq: ID
+    in: [ID!]
+  }
+
+  """
   Filter input for equality relation on String types.
   """
   input StringFilter {
