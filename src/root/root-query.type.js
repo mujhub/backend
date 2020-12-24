@@ -6,7 +6,7 @@ const RootQueryDef = gql`
   """ 
   type RootQuery {
     """
-    Get mess items
+    Get mess items.
     """
     messItems(filter: MessItemFilter, orderBy: MessItemOrderBy): [MessItem]
   }
