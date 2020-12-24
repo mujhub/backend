@@ -8,7 +8,7 @@ const RootMutationDef = gql`
     """
     Create mess items.
     """
-      createMessItem(name: String!, mealTime: MealTime!): MessItem!
+      createMessItem(input: MessItemInput!): MessItemPayload!
   }
 `;
 

@@ -54,6 +54,21 @@ const MessItemDef = gql`
     mealTime: Sort
     timestamp: Sort
   }
+
+  """
+  Input type for mutations on MessItem
+  """
+  input MessItemInput {
+    name: String!
+    mealTime: MealTime!
+  }
+
+  """
+  Payload type for mutations on MessItem
+  """
+  type MessItemPayload {
+    messItem: MessItem
+  }
 `;
 
 export default MessItemDef;

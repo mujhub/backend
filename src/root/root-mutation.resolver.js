@@ -7,7 +7,7 @@ export default {
     createMessItem: async (_parent, args, { models }) => {
       /* eslint-disable no-underscore-dangle */
       const _id = new ObjectId();
-      const { name, mealTime } = args;
+      const { name, mealTime } = args.input;
       const timestamp = Math.floor(Date.now() / 1000);
 
       const newMessItem = new models.MessItem({
@@ -17,7 +17,7 @@ export default {
         timestamp,
       });
 
-      return newMessItem.save();
+      return { messItem: newMessItem.save() };
     },
   },
 };
