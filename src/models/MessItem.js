@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema;
@@ -11,23 +11,23 @@ const { ObjectId } = Schema;
  * @property {Number} timestamp Epoch representation of datetime at which meal was added.
  */
 const MessItemSchema = new Schema({
-  _id: {
-    type: ObjectId,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  mealTime: {
-    type: String,
-    required: true,
-  },
-  timestamp: {
-    type: Number,
-    required: true,
-  },
+    _id: {
+        type: ObjectId,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    mealTime: {
+        type: String,
+        required: true,
+    },
+    timestamp: {
+        type: Number,
+        required: true,
+    },
 });
 
-const MessItem = mongoose.model('MessItem', MessItemSchema);
+const MessItem = mongoose.model("MessItem", MessItemSchema);
 
 export default MessItem;

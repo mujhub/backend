@@ -1,4 +1,4 @@
-import MessItem from './MessItem';
+import MessItem from "./MessItem.js";
 
 const models = { MessItem };
 
