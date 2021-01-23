@@ -1,9 +1,22 @@
 const mongoose = require("mongoose");
-const ShopItemSchema = require("./ShopItem");
-
 const schema = mongoose.Schema;
 
 const { ObjectId } = schema;
+
+const ShopItemSchema = new schema({
+    itemId: {
+        type: ObjectId,
+    },
+    itemName: {
+        type: String,
+    },
+    category: {
+        type: String,
+    },
+    price: {
+        type: Number,
+    },
+});
 
 const MerchantShopSchema = new schema({
     _id: {

@@ -1,43 +1,39 @@
-import { makeExecutableSchema } from 'graphql-tools';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 
 import { gql } from 'apollo-server-express';
-import RootQueryDef from './root/root-query.type';
-import RootMutationDef from './root/root-mutation.type';
-import MessItemDef from './mess/mess-item.type';
-import RootQueryResolver from './root/root-query.resolver';
-import RootMutationResolver from './root/root-mutation.resolver';
-import FilterDef from './filters.type';
-import SortDef from './sort.type';
+import { MessDef, MessResolvers } from "./mess";
+import FilterDef from './filters.types';
+import SortDef from './sort.types';
 
 const SchemaDef = gql`
   """
   Lowest node in the tree.
   """
   schema {
-    query: RootQuery,
-    mutation: RootMutation,
+    query: Query,
+    mutation: Mutation,
   }
 `;
 
 // All type definitions
 const typeDefs = [
   SchemaDef,
-  MessItemDef,
-  RootQueryDef,
+  MessDef,
   FilterDef,
   SortDef,
-  RootMutationDef,
 ];
+const mergedDefs = mergeTypeDefs(typeDefs);
 
 // All resolvers
 const resolvers = [
-  RootQueryResolver,
-  RootMutationResolver,
+  MessResolvers
 ];
+const mergedResolvers = mergeResolvers(resolvers);
 
 const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+  typeDefs: mergedDefs,
+  resolvers: mergedResolvers,
 });
 
 export default schema;

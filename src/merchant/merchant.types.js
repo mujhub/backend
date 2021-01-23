@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server-express");
 
-const MerchantShopDef = gql`
+const MerchantDef = gql`
     """
     Shop Details
     """
@@ -78,4 +78,4 @@ const MerchantShopDef = gql`
     }
 `;
 
-export default MerchantShopDef;
+export default MerchantDef;

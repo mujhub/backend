@@ -1,6 +1,25 @@
 import { gql } from 'apollo-server-express';
 
-const MessItemDef = gql`
+const MessDef = gql`
+  type Query {
+    """
+    Get mess items.
+    """
+    messItems(filter: MessItemFilter, orderBy: MessItemOrderBy): [MessItem]
+  }
+
+  type Mutation {
+    """
+    Create mess items.
+    """
+    createMessItem(input: MessItemInput!): CreateMessItemPayload!
+
+    """
+    Delete mess items that match filter.
+    """
+    deleteMessItem(filter: MessItemFilter!): DeleteMessItemPayload!
+  }
+
   """
   Each MessItem is a dish made in Mess.
   """
@@ -80,4 +99,4 @@ const MessItemDef = gql`
   }
 `;
 
-export default MessItemDef;
+export default MessDef;
