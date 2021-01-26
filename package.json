@@ -1,31 +1,17 @@
 {
+  "type": "module",
   "name": "backend",
   "version": "1.0.0",
   "description": "mujhub backend",
   "main": "index.js",
   "scripts": {
-    "start": "ENV=dev babel-node index.js",
+    "start": "nodemon index.js",
     "start-prod": "ENV=prod babel-node index.js",
     "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --fix"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mujhub/backend.git"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      "transform-export-extensions"
-    ]
   },
   "bugs": {
     "url": "https://github.com/mujhub/backend/issues"
@@ -42,6 +28,7 @@
     "graphql-tools": "^4.0.8",
     "mongoose": "^5.11.8",
     "morgan": "1.10.0",
+    "nodemon": "^2.0.7",
     "winston": "^3.3.3"
   },
   "devDependencies": {
