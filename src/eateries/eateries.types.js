@@ -18,8 +18,40 @@ const EateriesDef = gql`
         """
         Post offers on items of eateries
         """
-        createEateriesOffers(input: EateriesOffersInput!): Eateries!
+        createEateriesOffers(
+            eateryId: ID!
+            input: EateriesOffersInput!
+        ): Eateries!
+
+        """
+        Updating items of eateries(Only price as of now )
+        """
+        updateItem(eateryId: ID!, itemId: ID!, price: Int!): Eateries!
+
+        """
+        Deleting item of eateries
+        """
+        deleteItem(eateryId: ID!, itemId: ID!): Eateries!
     }
+
+    type Query {
+        """
+        Get eateries details
+        """
+        getEateryDetails(eateryId: ID!): Eateries!
+
+        """
+        Get eateries items by filter and sort
+        """
+        getEateryItems(
+            eateryId: ID!
+            filter: EateriesItemsFilter
+            orderBy: EateriesItemSortBy
+        ): [Item]
+
+        getEateryItemsWithoutFilter: [Item]
+    }
+
     """
     Shop Details
     """
@@ -103,6 +135,33 @@ const EateriesDef = gql`
     """
     input EateriesOffersInput {
         offer: String!
+    }
+
+    """
+    Fiter argument options for eateriesItems
+    """
+    input EateriesItemsFilter {
+        itemName: StringFilter
+        price: IntRangeFilter
+        category: StringFilter
+    }
+
+    """
+    Sort argument options for eateriesItems
+    """
+    input EateriesItemSortBy {
+        itemName: Sort
+        price: Sort
+        category: Sort
+    }
+
+    """
+    Payload type for mutation on deleting eatery item
+    """
+    type DeleteEateriesItemPayload {
+        found: Int!
+        success: Int!
+        deletedCount: Int!
     }
 `;
 

@@ -43,5 +43,6 @@ const EateriesSchema = new schema({
 });
 
 const Eateries = mongoose.model("Eateries", EateriesSchema);
+const EateriesItems = mongoose.model("EateriesItems", EateriesItemSchema);
 
-export default Eateries;
+export { Eateries, EateriesItems };
