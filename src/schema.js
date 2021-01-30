@@ -7,7 +7,11 @@ import { gql } from "apollo-server-express";
 import { MessResolvers, MessDef } from "./mess/index.js";
 
 //Eateries definition
-import { EateriesDef, EateriesResolvers } from "./eateries/index.js";
+import {
+    EateriesDef,
+    EateriesItemsDef,
+    EateriesResolvers,
+} from "./eateries/index.js";
 
 import FilterDef from "./filters.types.js";
 import SortDef from "./sort.types.js";
@@ -20,7 +24,15 @@ const SchemaDef = gql`
 `;
 
 // All type definitions
-const typeDefs = [SchemaDef, MessDef, FilterDef, SortDef, EateriesDef];
+const typeDefs = [
+    SchemaDef,
+    EateriesItemsDef,
+    MessDef,
+    FilterDef,
+    SortDef,
+    EateriesDef,
+];
+
 const mergedDefs = mergeTypeDefs(typeDefs);
 
 // All resolvers
