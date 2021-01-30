@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { Eateries, EateriesItems } from "./eateries.models.js";
+import Eateries from "./eateries.models.js";
+import EateriesItems from "./items.models.js";
 import {
     generateMongoFilterFromEateriesItemFilter,
     generateMongoSortFromEateriesItemsOrderBy,
@@ -10,45 +11,33 @@ const { ObjectId } = mongoose.Types;
 export default {
     Query: {
         getEateryItems: async (_parent, args) => {
+            const { eateryId } = args;
+
+            const data = await EateriesItems.find({
+                itemOf: { $eq: eateryId },
+            }).populate("itemOf");
+
+            console.log(data);
+            return data;
+        },
+        eateryItems: async (_parent, args) => {
             const { filter, orderBy } = args;
 
-            const eatery = await Eateries.findById({
-                _id: eateryId,
-            });
+            const mongoFilter = filter
+                ? generateMongoFilterFromEateriesItemFilter(filter)
+                : {};
 
-            if (filter._id) {
-                if (filter._id.eq) {
-                    const index = eatery.items.findIndex(
-                        (item) => item._id.toString() === filter._id.eq
-                    );
+            const mongoSort = orderBy
+                ? generateMongoSortFromEateriesItemsOrderBy(orderBy)
+                : {};
 
-                    const item = eatery.items[index];
-                    return item;
-                }
-            }
+            const eateryItems = await EateriesItems.find(mongoFilter)
+                .sort(mongoSort)
+                .populate("itemOf");
 
-            if (filter.itemName) {
-                const index = eatery.items.findIndex(
-                    (item) => item.itemName === filter.itemName
-                );
-            }
+            console.log(eateryItems);
 
-            // const mongofilter = filter
-            //     ? generateMongoFilterFromEateriesItemFilter(filter)
-            //     : {};
-
-            // const mongoSort = orderBy
-            //     ? generateMongoSortFromEateriesItemsOrderBy(orderBy)
-            //     : {};
-
-            // const items = await EateriesItems.findOne(mongofilter).sort(
-            //     mongoSort
-            // );
-            // console.log(items);
-            // return items;
-        },
-        getEateryItemsWithoutFilter: async (_parent, args) => {
-            const items = await EateriesItems.find();
+            return eateryItems;
         },
     },
     Mutation: {
@@ -73,24 +62,22 @@ export default {
         createEateriesItems: async (_parent, args) => {
             const { _id } = new ObjectId();
 
+            const { eateryId } = args;
             const { itemName, price, category } = args.input;
 
-            const eatery = await Eateries.findOneAndUpdate(
-                { _id: args.eateryId },
-                {
-                    $push: {
-                        items: {
-                            _id,
-                            itemName,
-                            price,
-                            category,
-                        },
-                    },
-                }
-            );
+            const newItem = new EateriesItems({
+                _id,
+                itemName,
+                price,
+                category,
+            });
 
-            console.log(eatery);
-            return eatery;
+            newItem.itemOf = eateryId;
+
+            const savedItem = await newItem.save();
+
+            console.log(savedItem);
+            return savedItem;
         },
 
         createEateriesOffers: async (_parent, args) => {
@@ -113,42 +100,47 @@ export default {
         },
 
         updateItem: async (_parent, args) => {
-            const { eateryId, itemId, price } = args;
+            const { itemId, input } = args;
 
-            const eatery = await Eateries.findById({
-                _id: eateryId,
+            const item = await EateriesItems.findById({
+                _id: itemId,
             });
 
-            const index = eatery.items.findIndex(
-                (item) => item._id.toString() === itemId
-            );
+            console.log(item, "item");
 
-            console.log(index, "index");
+            if (input.itemName) {
+                item.itemName = input.itemName;
+            }
 
-            eatery.items[index].price = price;
+            if (input.price) {
+                item.price = input.price;
+            }
 
-            const updatedEatery = await eatery.save();
+            if (input.category) {
+                item.category = input.category;
+            }
+
+            const updatedEatery = await item.save();
 
             console.log(updatedEatery, "updatedEatery");
             return updatedEatery;
         },
-        deleteItem: async (_parent, args) => {
-            const { eateryId, itemId } = args;
+        deleteItems: async (_parent, args) => {
+            const { filter } = args;
 
-            const eatery = await Eateries.findById({
-                _id: eateryId,
-            });
+            const mongoFilter = filter
+                ? generateMongoFilterFromEateriesItemFilter(filter)
+                : {};
 
-            const index = eatery.items.findIndex(
-                (item) => item._id.toString() === itemId
+            const { n, ok, deletedCount } = await EateriesItems.deleteMany(
+                mongoFilter
             );
 
-            console.log(index, "index");
-
-            delete eatery.items[index];
-
-            console.log(eatery);
-            return eatery;
+            return {
+                found: n,
+                success: ok,
+                deletedCount,
+            };
         },
     },
 };
