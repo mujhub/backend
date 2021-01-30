@@ -3,21 +3,6 @@ const schema = mongoose.Schema;
 
 const { ObjectId } = schema;
 
-const EateriesItemSchema = new schema({
-    _id: {
-        type: ObjectId,
-    },
-    itemName: {
-        type: String,
-    },
-    category: {
-        type: String,
-    },
-    price: {
-        type: Number,
-    },
-});
-
 const EateriesSchema = new schema({
     _id: {
         type: ObjectId,
@@ -39,10 +24,8 @@ const EateriesSchema = new schema({
     closingTime: {
         type: String,
     },
-    items: [EateriesItemSchema],
 });
 
 const Eateries = mongoose.model("Eateries", EateriesSchema);
-const EateriesItems = mongoose.model("EateriesItems", EateriesItemSchema);
 
-export { Eateries, EateriesItems };
+export default Eateries;

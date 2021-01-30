@@ -42,8 +42,9 @@ export const generateMongoFilterFromEateriesItemFilter = (filter) => {
 //Converts GraphQL input type type into mongodb sort string
 export const generateMongoSortFromEateriesItemsOrderBy = (orderBy) => {
     const generatedSort = {};
-
-    const [key, val] = Object.enteries(orderBy)[0];
+    console.log(orderBy, "orderBy");
+    console.log(Object.entries(orderBy), "lol");
+    const [key, val] = Object.entries(orderBy)[0];
     generatedSort[key] = val;
 
     return generatedSort;
