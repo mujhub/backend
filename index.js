@@ -20,10 +20,10 @@ const options = {
 mongoose
     .connect(process.env.DB_URI, options)
     .then(() => {
-        console.log("Database connected");
+        logger.info("Database connected");
     })
     .catch((err) => {
-        console.log(err);
+        logger.error(err);
     });
 
 // Mongoose models are provided in context.
@@ -50,9 +50,6 @@ server.applyMiddleware({ app, path: "/api" });
 app.use(morgan("combined", { stream: logger.stream }));
 app.listen(5000, () => {
     logger.info(
-        `Apollo server listening at http://localhost:5000${server.graphqlPath}`
-    );
-    console.log(
         `Apollo server listening at http://localhost:5000${server.graphqlPath}`
     );
 });

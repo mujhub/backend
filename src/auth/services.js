@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import AuthUser from "./models/AuthUser";
+import AuthUser from "./models/AuthUser.js";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
-import { USER } from "../Roles";
-import RefreshToken from "./models/RefreshToken";
+import { USER } from "../Roles.js";
+import RefreshToken from "./models/RefreshToken.js";
 import { ApolloError } from "apollo-server-express";
 import crypto from "crypto";
 import {
@@ -11,7 +11,7 @@ import {
   EMAIL_ALREADY_REGISTERED_ERROR,
   EXPIRED_REFRESH_TOKEN_ERROR,
   INTERNAL_SERVER_ERROR,
-} from "../ErrorCodes";
+} from "../ErrorCodes.js";
 
 const { ObjectId } = mongoose.Types;
 

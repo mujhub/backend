@@ -1,4 +1,4 @@
-import { createNewUser, loginUser, refresh } from "./services";
+import { createNewUser, loginUser, refresh } from "./services.js";
 
 export default {
   Mutation: {

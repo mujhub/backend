@@ -2,11 +2,11 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 
 import { gql } from 'apollo-server-express';
-import { MessDef, MessResolvers } from "./mess";
+import { MessDef, MessResolvers } from "./mess/index.js";
 import { EateriesDef, EateriesItemsDef, EateriesResolvers } from "./eateries/index.js";
-import { AuthDef, AuthResolvers } from "./auth";
-import FilterDef from './filters.types';
-import SortDef from './sort.types';
+import { AuthDef, AuthResolvers } from "./auth/index.js";
+import FilterDef from './filters.types.js';
+import SortDef from './sort.types.js';
 
 const SchemaDef = gql`
     schema {
