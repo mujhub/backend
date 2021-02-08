@@ -5,9 +5,11 @@
   "description": "mujhub backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "start-prod": "ENV=prod babel-node index.js",
-    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --fix"
+    "start": "npm run build && ENV=production node build/index.js",
+    "dev": "ENV=dev nodemon --exec babel-node index.js",
+    "build": "npm run clean && babel . --out-dir build --ignore \"node_modules\",\"logs\"",
+    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
+    "clean": "rm -r build"
   },
   "repository": {
     "type": "git",
@@ -22,13 +24,15 @@
     "@graphql-tools/schema": "^7.1.2",
     "apollo-server-express": "^2.19.0",
     "app-root-path": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
+    "graphql-shield": "^7.5.0",
     "graphql-tools": "^4.0.8",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
     "morgan": "1.10.0",
-    "nodemon": "^2.0.7",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -36,6 +40,7 @@
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-env": "^1.5.2",
     "eslint": "^7.16.0",
-    "eslint-config-airbnb": "^18.2.1"
+    "eslint-config-airbnb": "^18.2.1",
+    "nodemon": "^2.0.7"
   }
 }
