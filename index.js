@@ -5,6 +5,9 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import schema from "./src/schema.js";
 import logger from "./config/winston.js";
+import jsonwebtoken from "jsonwebtoken";
+import permissions from "./src/permissions.js"
+import { applyMiddleware } from "graphql-middleware";
 
 // if server is started using `npm start`, it will use .dev.env file to populate variables.
 if (process.env.ENV === "dev") dotenv.config({ path: ".dev.env" });
@@ -28,9 +31,22 @@ mongoose
 
 // Mongoose models are provided in context.
 const server = new ApolloServer({
-    schema,
+    schema: applyMiddleware(schema, permissions),
     tracing: true,
     logger,
+    context: ({ req }) => {
+        const { headers } = req;
+        if (headers.authorization) {
+            let token = headers.authorization.split(" ")[1];
+            try {
+                let user = jsonwebtoken.verify(token, "mIAb!r@5r@pA7ZK19x4Wl0Y83T5!@$De");
+                return { jwt: user };
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    },
     plugins: [
         {
             requestDidStart() {

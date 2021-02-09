@@ -1,17 +1,17 @@
 export const USER = [
-    "mess:read",
+    "mess:item:read",
     "merchant:shop:read",
     "merchant:item:read",
     "auth:read",
 ];
 
 export const MESS_ADMIN = [
-    "mess:read",
-    "mess:create",
+    "mess:item:read",
+    "mess:item:create",
 ];
 
 export const MERCHANT = [
-    "mess:read",
+    "mess:item:read",
     "merchant:shop:read",
     "merchant:shop:update",
     "merchant:item:read",
@@ -21,10 +21,9 @@ export const MERCHANT = [
 ]
 
 export const WEB_ADMIN = [
-    "mess:read",
-    "mess:create",
-    "mess:update",
-    "mess:delete",
+    "mess:item:read",
+    "mess:item:create",
+    "mess:item:delete",
     "merchant:shop:read",
     "merchant:shop:create",
     "merchant:shop:update",
@@ -33,8 +32,5 @@ export const WEB_ADMIN = [
     "merchant:item:create",
     "merchant:item:update",
     "merchant:item:delete",
-    "roles:read",
-    "roles:create",
-    "roles:update",
-    "roles:delete",
+    "admin",
 ]
